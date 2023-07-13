@@ -46,3 +46,7 @@ app.*.map.json
 
 # firebase 
 /lib/firebase_options.dart
+
+
+# my note
+where_is_apk.txt
