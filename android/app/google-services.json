@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "662923791335",
+    "project_id": "gazali-chat",
+    "storage_bucket": "gazali-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662923791335:android:67192e088eb1d5a3450b42",
+        "android_client_info": {
+          "package_name": "com.example.gazali_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662923791335-o178qshmcqncf5cbokgckkrm4ugq4pte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgmnTwLmjsXKqyy6lb7nnLO5GzlxqdmfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662923791335-o178qshmcqncf5cbokgckkrm4ugq4pte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
