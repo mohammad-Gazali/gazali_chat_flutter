@@ -5,20 +5,17 @@ class Chat {
   final String id;
   final User user1;
   final User user2;
-  final int unreadedMessages;
 
   Chat({
     required this.id,
     required this.user1,
     required this.user2,
-    required this.unreadedMessages,
   });
 
   Chat.fromJson(JsonType data)
       : id = data["id"],
         user1 = User.fromJson(data["user1"]),
-        user2 = User.fromJson(data["user2"]),
-        unreadedMessages = data["unreaded_messages"];
+        user2 = User.fromJson(data["user2"]);
 }
 
 class User {

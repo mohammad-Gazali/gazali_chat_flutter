@@ -30,6 +30,7 @@ class _ChatsSectionState extends State<ChatsSection> {
           Center(
             child: Text(
               'Sign in to start chat with other people.',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

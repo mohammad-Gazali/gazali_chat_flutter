@@ -44,7 +44,29 @@ class _HomeScreenState extends State<HomeScreen> {
       body: const ChatsSection(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed("/add-chat");
+          if (AuthService.user == null) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text(
+                    'Not Authenticated',
+                  ),
+                  content: const Text(
+                    'You must sign in before adding new chat.',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            Navigator.of(context).pushNamed("/add-chat");
+          }
         },
         child: const Icon(Icons.person_add_alt_1_sharp),
       ),
