@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gazali_chat/screens/chat/message.dart';
@@ -24,16 +26,19 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final _messageController = TextEditingController();
   final _scrollController = ScrollController();
+  StreamSubscription? _streamSubscribtion;
 
   @override
   void initState() {
-    widget.messagesStream.listen((_) {
-      // making messages scroll when message is sent
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(microseconds: 500),
-        curve: Curves.easeOut,
-      );
+    setState(() {
+      _streamSubscribtion = widget.messagesStream.listen((_) {
+        // making messages scroll when message is sent
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(microseconds: 500),
+          curve: Curves.easeOut,
+        );
+      });
     });
     super.initState();
   }
@@ -41,6 +46,8 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void dispose() {
     _messageController.dispose();
+    _scrollController.dispose();
+    _streamSubscribtion?.cancel();
     super.dispose();
   }
 
