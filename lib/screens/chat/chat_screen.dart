@@ -5,12 +5,16 @@ import 'package:gazali_chat/services/auth.dart';
 import 'package:gazali_chat/services/firestore.dart';
 import 'package:gazali_chat/services/models.dart';
 import 'package:gazali_chat/shared/shared.dart';
+import 'package:gazali_chat/typedefs.dart';
 
 class ChatScreen extends StatefulWidget {
   final Chat chat;
+  final Stream<QuerySnapshot<JsonType>> messagesStream;
+
   const ChatScreen({
     super.key,
     required this.chat,
+    required this.messagesStream,
   });
 
   @override
@@ -19,6 +23,20 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _messageController = TextEditingController();
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    widget.messagesStream.listen((_) {
+      // making messages scroll when message is sent
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(microseconds: 500),
+        curve: Curves.easeOut,
+      );
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -37,7 +55,18 @@ class _ChatScreenState extends State<ChatScreen> {
       );
       _messageController.clear();
     } catch (e) {
-      // TODO: handle error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          showCloseIcon: true,
+          content: Text(
+            "Something went wrong",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onError,
+            ),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
     }
   }
 
@@ -56,7 +85,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Expanded(
             child: StreamBuilder(
-              stream: FirestoreService.messageCollectionStream(widget.chat.id),
+              stream: widget.messagesStream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const LoadingScreen();
@@ -82,6 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     FocusManager.instance.primaryFocus?.unfocus();
                   },
                   child: ListView(
+                    controller: _scrollController,
                     children: [
                       ...snapshot.data!.docs.map((DocumentSnapshot doc) {
                         var id = doc.id;

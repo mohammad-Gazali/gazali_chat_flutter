@@ -164,7 +164,14 @@ class _ChatsSectionState extends State<ChatsSection> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ChatScreen(chat: chat))
+                        MaterialPageRoute(
+                          builder: (context) => ChatScreen(
+                            chat: chat,
+                            messagesStream:
+                                FirestoreService.messageCollectionStream(
+                                    chat.id),
+                          ),
+                        ),
                       );
                     },
                   ),

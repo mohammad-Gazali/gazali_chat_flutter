@@ -156,14 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.grey.shade700),
                           ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.close),
-                              SizedBox(width: 8),
-                              Text('Cancel'),
-                            ],
-                          ),
+                          child: const Text('Cancel'),
                         ),
                       ),
                       const SizedBox(
@@ -172,23 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Expanded(
                         child: FilledButton(
                           onPressed: _isLoading ? null : _updateName,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              _isLoading
-                                  ? const SizedBox(
-                                      width: 16,
-                                      height: 16,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                        strokeWidth: 2,
-                                      ),
-                                    )
-                                  : const Icon(Icons.check),
-                              const SizedBox(width: 8),
-                              const Text('Save change'),
-                            ],
-                          ),
+                          child: const Text('Save'),
                         ),
                       ),
                     ],
